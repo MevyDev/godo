@@ -1,19 +1,44 @@
 {
   "tasks": [
     {
-      "text": "implement player movement",
-      "status": "todo",
+      "text": "add particle effects",
+      "status": "1:todo",
+      "difficulty": 4
+    },
+    {
+      "text": "implement inventory system",
+      "status": "1:todo",
+      "difficulty": 8
+    },
+    {
+      "text": "fix UI scaling",
+      "status": "1:todo",
+      "difficulty": 3
+    },
+    {
+      "text": "create tutorial",
+      "status": "1:todo",
       "difficulty": 6
     },
     {
       "text": "fix collision bug with walls",
-      "status": "done", 
+      "status": "2:bugs",
       "difficulty": 2
     },
     {
-      "text": "add particle effects",
-      "status": "dropped",
+      "text": "implement player movement",
+      "status": "3:done",
+      "difficulty": 8
+    },
+    {
+      "text": "add main menu",
+      "status": "3:done",
       "difficulty": 4
+    },
+    {
+      "text": "add multiplayer mode",
+      "status": "4:dropped",
+      "difficulty": 10
     }
   ]
 }
