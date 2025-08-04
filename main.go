@@ -64,6 +64,22 @@ func addTask(todoList taskList, taskText, taskStatus, taskDifficulty string) (ta
 	return todoList
 }
 
+func removeTask(todoList taskList, taskText string) (taskList) {
+	taskIdx := findTask(todoList, taskText)
+	if taskIdx == -1 {
+		return todoList
+	}
+	n := len(todoList.Tasks)
+	var updatedList = taskList{Tasks: []task{}}
+	for i:=0;i<n;i++ {
+		if i == taskIdx {
+			continue
+		}
+		updatedList.Tasks = append(updatedList.Tasks, todoList.Tasks[i])
+	}
+	return updatedList
+}
+
 func main() {
 	var todoPath string = "todo.json"
 
@@ -74,6 +90,8 @@ func main() {
 	}
 
 	todoList = addTask(todoList, "main menu", "todo", "hard")
+
+	todoList = removeTask(todoList, "main menu")
 
 	err = writeTasks(todoPath, todoList)
 	if err != nil {
