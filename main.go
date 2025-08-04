@@ -53,19 +53,30 @@ func findTask(todoList taskList, taskText string) (int) {
 	return -1
 }
 
+func addTask(todoList taskList, taskText, taskStatus, taskDifficulty string) (taskList) {
+	newTask := task{Text: taskText, Status: taskStatus, Difficulty: taskDifficulty}
+	taskIdx := findTask(todoList, taskText)
+	if taskIdx == -1 {
+		todoList.Tasks = append(todoList.Tasks, newTask)
+		return todoList
+	}
+	todoList.Tasks[taskIdx] = newTask
+	return todoList
+}
+
 func main() {
 	var todoPath string = "todo.json"
+
 	var todoList taskList
 	todoList, err := loadTasks(todoPath)
 	if err != nil {
 		fmt.Println("Load error:", err)
 	}
-	newTask := task{Text: "main menu", Status: "todo", Difficulty: "hard"}
-	todoList.Tasks = append(todoList.Tasks, newTask)
+
+	todoList = addTask(todoList, "main menu", "todo", "hard")
+
 	err = writeTasks(todoPath, todoList)
 	if err != nil {
 		fmt.Println("Write error:", err)
 	}
-	taskIdx := findTask(todoList, "ain menu")
-	fmt.Println("Task index:", taskIdx)
 }
