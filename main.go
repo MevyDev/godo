@@ -133,21 +133,25 @@ func difficultyColor(difficulty int) (string) {
 	return Red
 }
 
+func groupTasks(todoList taskList) (map[string]taskList) {
+	var taskStatusGroup = make(map[string]taskList)
+	n := len(todoList.Tasks)
+	for i:=0;i<n;i++ {
+		curStatus := todoList.Tasks[i].Status
+		statusTasks := taskStatusGroup[curStatus]
+		statusTasks.Tasks = append(statusTasks.Tasks, todoList.Tasks[i])
+		taskStatusGroup[curStatus] = statusTasks
+	}
+	return taskStatusGroup
+}
+
 func printTasks(todoList taskList, excludedStatus []string, sortOn string, sortDescending bool) (error) {
 	sortedTaskList, err := sortTasks(todoList, sortOn, sortDescending)
 
-	var taskStatus = make(map[string]taskList)
-
-	n := len(sortedTaskList.Tasks)
-	for i:=0;i<n;i++ {
-		curStatus := sortedTaskList.Tasks[i].Status
-		statusTasks := taskStatus[curStatus]
-		statusTasks.Tasks = append(statusTasks.Tasks, sortedTaskList.Tasks[i])
-		taskStatus[curStatus] = statusTasks
-	}
+	var taskStatusGroup = groupTasks(sortedTaskList)
 
 	idx := 1
-	for status, grouppedList := range taskStatus {
+	for status, grouppedList := range taskStatusGroup {
 		exclude := false
 		for i:=0;i<len(excludedStatus);i++ {
 			if excludedStatus[i] == status {
