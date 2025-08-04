@@ -11,3 +11,7 @@ type task struct {
 	Status		string	`json:"status"`
 	Difficulty	string	`json:"difficulty"`
 }
+
+type taskList struct {
+	Tasks []task `json:"tasks"`
+}
