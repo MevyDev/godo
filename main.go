@@ -150,8 +150,16 @@ func printTasks(todoList taskList, excludedStatus []string, sortOn string, sortD
 
 	var taskStatusGroup = groupTasks(sortedTaskList)
 
+	var keys []string
+	for key := range taskStatusGroup {
+		keys = append(keys, key)
+	}
+
+	sort.Strings(keys)
+
 	idx := 1
-	for status, grouppedList := range taskStatusGroup {
+	for _, status := range keys {
+		grouppedList := taskStatusGroup[status]
 		exclude := false
 		for i:=0;i<len(excludedStatus);i++ {
 			if excludedStatus[i] == status {
