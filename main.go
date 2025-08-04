@@ -141,7 +141,9 @@ func printTasks(todoList taskList, excludedStatus []string, sortOn string, sortD
 			continue
 		}
 
-		fmt.Println("")
+		if idx != 1 {
+			fmt.Println("")
+		}
 		fmt.Printf("[%s]\n", status)
 
 		for _, task := range grouppedList.Tasks {
