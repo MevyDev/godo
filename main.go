@@ -9,7 +9,7 @@ import (
 type task struct {
 	Text		string	`json:"text"`
 	Status		string	`json:"status"`
-	Difficulty	string	`json:"difficulty"`
+	Difficulty	int	`json:"difficulty"`
 }
 
 type taskList struct {
@@ -53,7 +53,7 @@ func findTask(todoList taskList, taskText string) (int) {
 	return -1
 }
 
-func addTask(todoList taskList, taskText, taskStatus, taskDifficulty string) (taskList) {
+func addTask(todoList taskList, taskText, taskStatus string, taskDifficulty int) (taskList) {
 	newTask := task{Text: taskText, Status: taskStatus, Difficulty: taskDifficulty}
 	taskIdx := findTask(todoList, taskText)
 	if taskIdx == -1 {
@@ -89,7 +89,7 @@ func main() {
 		fmt.Println("Load error:", err)
 	}
 
-	todoList = addTask(todoList, "main menu", "todo", "hard")
+	todoList = addTask(todoList, "main menu", "todo", 5)
 
 	todoList = removeTask(todoList, "main menu")
 

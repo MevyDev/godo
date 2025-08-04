@@ -3,17 +3,17 @@
     {
       "text": "implement player movement",
       "status": "todo",
-      "difficulty": "medium"
+      "difficulty": 6
     },
     {
       "text": "fix collision bug with walls",
       "status": "done", 
-      "difficulty": "bugs"
+      "difficulty": 2
     },
     {
       "text": "add particle effects",
       "status": "dropped",
-      "difficulty": "hard"
+      "difficulty": 4
     }
   ]
 }
