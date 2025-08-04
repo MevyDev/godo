@@ -28,12 +28,30 @@ func loadTasks(todoPath string) (taskList, error) {
 	return todos, err
 }
 
+func writeTasks(todoPath string, todoList taskList) (error) {
+	formattedList, err := json.MarshalIndent(todoList, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	err = os.WriteFile(todoPath, formattedList, 0644)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func main() {
 	var todoPath string = "todo.json"
 	var todoList taskList
 	todoList, err := loadTasks(todoPath)
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Println("Load error:", err)
 	}
-	fmt.Println(todoList.Tasks)
+	newTask := task{Text: "main menu", Status: "todo", Difficulty: "hard"}
+	todoList.Tasks = append(todoList.Tasks, newTask)
+	err = writeTasks(todoPath, todoList)
+	if err != nil {
+		fmt.Println("Write error:", err)
+	}
 }
