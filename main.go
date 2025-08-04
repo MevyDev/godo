@@ -108,6 +108,42 @@ func sortTasks(todoList taskList, sortOn string, sortDescending bool) (taskList,
 	return reversedTodoList, nil
 }
 
+func printTasks(todoList taskList, excludedStatus []string, sortOn string, sortDescending bool) (error) {
+	sortedTaskList, err := sortTasks(todoList, sortOn, sortDescending)
+
+	var taskStatus = make(map[string]taskList)
+
+	n := len(sortedTaskList.Tasks)
+	for i:=0;i<n;i++ {
+		curStatus := sortedTaskList.Tasks[i].Status
+		statusTasks := taskStatus[curStatus]
+		statusTasks.Tasks = append(statusTasks.Tasks, sortedTaskList.Tasks[i])
+		taskStatus[curStatus] = statusTasks
+	}
+
+	idx := 1
+	for status, grouppedList := range taskStatus {
+		exclude := false
+		for i:=0;i<len(excludedStatus);i++ {
+			if excludedStatus[i] == status {
+				exclude = true
+			}
+		}
+		if exclude {
+			continue
+		}
+
+		fmt.Println("")
+		fmt.Printf("[%s]\n", status)
+
+		for _, task := range grouppedList.Tasks {
+			fmt.Printf("%d) %s (%d/10)\n", idx, task.Text, task.Difficulty)
+			idx++
+		}
+	}
+	return err
+}
+
 func main() {
 	var todoPath string = "todo.json"
 
@@ -128,4 +164,5 @@ func main() {
 	if err != nil {
 		fmt.Println("Write error:", err)
 	}
+	printTasks(todoList, []string{}, "difficulty", false)
 }
