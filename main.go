@@ -201,15 +201,5 @@ func main() {
 		fmt.Println("Load error:", err)
 	}
 
-	todoList = addTask(todoList, "main menu", "todo", 5)
-
-	if err != nil {
-		fmt.Println("Load error:", err)
-	}
-
-	err = writeTasks(todoPath, todoList)
-	if err != nil {
-		fmt.Println("Write error:", err)
-	}
 	printTasks(todoList, []string{}, "difficulty", true)
 }
