@@ -8,7 +8,7 @@ import (
 )
 
 const (
-    Reset  = "\033[0m"
+    White  = "\033[0m"
     Red    = "\033[31m"
     Green  = "\033[32m"
     Yellow = "\033[33m"
@@ -27,7 +27,7 @@ type taskList struct {
 
 
 func colorPrint(color, text string) {
-    fmt.Printf(color + text + Reset)
+    fmt.Printf(color + text + White)
 }
 
 func loadTasks(todoPath string) (taskList, error) {
@@ -118,6 +118,19 @@ func sortTasks(todoList taskList, sortOn string, sortDescending bool) (taskList,
 		reversedTodoList.Tasks = append(reversedTodoList.Tasks, todoList.Tasks[i])
 	}
 	return reversedTodoList, nil
+}
+
+func difficultyColor(difficulty int) (string) {
+	if difficulty == 0 {
+		return White
+	}
+	if difficulty < 4 {
+		return Green
+	}
+	if difficulty < 8 {
+		return Yellow
+	}
+	return Red
 }
 
 func printTasks(todoList taskList, excludedStatus []string, sortOn string, sortDescending bool) (error) {
