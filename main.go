@@ -161,7 +161,7 @@ func printTasks(todoList taskList, excludedStatus []string, sortOn string, sortD
 		if idx != 1 {
 			fmt.Println("")
 		}
-		fmt.Printf("[%s]\n", status)
+		fmt.Printf("\033[1;4;36m[%s]\033[0m\n", status)
 
 		for _, task := range grouppedList.Tasks {
 			curColor := difficultyColor(task.Difficulty)
