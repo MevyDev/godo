@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"encoding/json"
 	"os"
+	"sort"
 )
 
 type task struct {
@@ -80,6 +81,33 @@ func removeTask(todoList taskList, taskText string) (taskList) {
 	return updatedList
 }
 
+func sortTasks(todoList taskList, sortOn string, sortDescending bool) (taskList, error) {
+	switch sortOn {
+	case "text":
+		sort.Slice(todoList.Tasks, func(i, j int) bool {
+		    return todoList.Tasks[i].Text < todoList.Tasks[j].Text
+		})
+	case "difficulty":
+		sort.Slice(todoList.Tasks, func(i, j int) bool {
+			return todoList.Tasks[i].Difficulty < todoList.Tasks[j].Difficulty
+		})
+	default:
+		return todoList, fmt.Errorf("invalid sort key: %s", sortOn)
+	}
+
+	if !sortDescending {
+		return todoList, nil
+	}
+
+	
+	n := len(todoList.Tasks)
+	var reversedTodoList = taskList{Tasks: []task{}}
+	for i:=n-1;i>=0;i-- {
+		reversedTodoList.Tasks = append(reversedTodoList.Tasks, todoList.Tasks[i])
+	}
+	return reversedTodoList, nil
+}
+
 func main() {
 	var todoPath string = "todo.json"
 
@@ -91,7 +119,10 @@ func main() {
 
 	todoList = addTask(todoList, "main menu", "todo", 5)
 
-	todoList = removeTask(todoList, "main menu")
+	todoList, err = sortTasks(todoList, "text", false)
+	if err != nil {
+		fmt.Println("Load error:", err)
+	}
 
 	err = writeTasks(todoPath, todoList)
 	if err != nil {
