@@ -26,6 +26,10 @@ type taskList struct {
 }
 
 
+func colorPrint(color, text string) {
+    fmt.Printf(color + text + Reset)
+}
+
 func loadTasks(todoPath string) (taskList, error) {
 	data, err := os.ReadFile(todoPath)
 	if err != nil {
