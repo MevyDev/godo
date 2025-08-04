@@ -96,11 +96,11 @@ func removeTask(todoList taskList, taskText string) (taskList) {
 func sortTasks(todoList taskList, sortOn string, sortDescending bool) (taskList, error) {
 	switch sortOn {
 	case "text":
-		sort.Slice(todoList.Tasks, func(i, j int) bool {
+		sort.SliceStable(todoList.Tasks, func(i, j int) bool {
 		    return todoList.Tasks[i].Text < todoList.Tasks[j].Text
 		})
 	case "difficulty":
-		sort.Slice(todoList.Tasks, func(i, j int) bool {
+		sort.SliceStable(todoList.Tasks, func(i, j int) bool {
 			return todoList.Tasks[i].Difficulty < todoList.Tasks[j].Difficulty
 		})
 	default:
