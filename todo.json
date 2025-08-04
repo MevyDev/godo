@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "text": "implement player movement",
+      "status": "todo",
+      "difficulty": "medium"
+    },
+    {
+      "text": "fix collision bug with walls",
+      "status": "done", 
+      "difficulty": "bugs"
+    },
+    {
+      "text": "add particle effects",
+      "status": "dropped",
+      "difficulty": "hard"
+    }
+  ]
+}
