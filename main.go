@@ -41,6 +41,18 @@ func writeTasks(todoPath string, todoList taskList) (error) {
 	return nil
 }
 
+// Returns task index if found, else -1
+func findTask(todoList taskList, taskText string) (int) {
+	n := len(todoList.Tasks)
+	for i:=0;i<n;i++ {
+		curTaskText := todoList.Tasks[i].Text
+		if curTaskText == taskText {
+			return i
+		}
+	}
+	return -1
+}
+
 func main() {
 	var todoPath string = "todo.json"
 	var todoList taskList
@@ -54,4 +66,6 @@ func main() {
 	if err != nil {
 		fmt.Println("Write error:", err)
 	}
+	taskIdx := findTask(todoList, "ain menu")
+	fmt.Println("Task index:", taskIdx)
 }
