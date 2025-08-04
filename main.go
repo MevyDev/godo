@@ -164,7 +164,10 @@ func printTasks(todoList taskList, excludedStatus []string, sortOn string, sortD
 		fmt.Printf("[%s]\n", status)
 
 		for _, task := range grouppedList.Tasks {
-			fmt.Printf("%d) %s (%d/10)\n", idx, task.Text, task.Difficulty)
+			curColor := difficultyColor(task.Difficulty)
+			fmt.Printf("%d) %s ", idx, task.Text)
+			difficultyText := fmt.Sprintf("(%d/10)\n", task.Difficulty)
+			colorPrint(curColor, difficultyText)
 			idx++
 		}
 	}
@@ -182,7 +185,6 @@ func main() {
 
 	todoList = addTask(todoList, "main menu", "todo", 5)
 
-	todoList, err = sortTasks(todoList, "text", false)
 	if err != nil {
 		fmt.Println("Load error:", err)
 	}
@@ -191,5 +193,5 @@ func main() {
 	if err != nil {
 		fmt.Println("Write error:", err)
 	}
-	printTasks(todoList, []string{}, "difficulty", false)
+	printTasks(todoList, []string{}, "difficulty", true)
 }
